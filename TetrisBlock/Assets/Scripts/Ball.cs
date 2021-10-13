@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
 
     private bool isLocked = true;
 
-    private void Start()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
     }

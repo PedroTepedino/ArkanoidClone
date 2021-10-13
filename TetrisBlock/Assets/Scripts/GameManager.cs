@@ -9,6 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private Ball ball;
 
+    public static int Score = 0;
+
+    private void Start()
+    {
+        Score = 0;
+    }
 
     private void Update()
     {
