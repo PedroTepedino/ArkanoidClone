@@ -26,8 +26,12 @@ public class Ball : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.parent = null;
+            body.bodyType = RigidbodyType2D.Dynamic;
             isLocked = false;
-        
+        }
+
         if (isLocked) return;
         
         body.velocity = velocity;
