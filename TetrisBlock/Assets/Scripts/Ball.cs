@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,6 +21,7 @@ public class Ball : MonoBehaviour
     private void OnEnable()
     {
         velocity = direction.normalized * speed;
+        body.bodyType = RigidbodyType2D.Kinematic;
         isLocked = true;
     }
 
@@ -51,6 +53,9 @@ public class Ball : MonoBehaviour
             velocity.x = -velocity.x;
         }
     }
-    
-  
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        gameObject.SetActive(false);
+    }
 }
