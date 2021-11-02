@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Ball : MonoBehaviour
 {
@@ -27,35 +25,58 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isLocked && Input.GetKeyDown(KeyCode.Space))
         {
             transform.parent = null;
             body.bodyType = RigidbodyType2D.Dynamic;
             isLocked = false;
+            
+            body.velocity = velocity;
         }
-
-        if (isLocked) return;
         
-        body.velocity = velocity;
+        // if (isLocked) return;
+        //
+        // body.velocity = velocity;
+    }
+
+    private void LateUpdate()
+    {
+        body.velocity = body.velocity.normalized * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        var contactAngle = Vector2.Angle(Vector2.right, other.contacts[0].point - (Vector2)this.transform.position);
-
-        if (contactAngle >= 45 && contactAngle <= 135)
-        {
-            velocity.y = -velocity.y;
-        }
-
-        if (!(contactAngle > 45 && contactAngle < 135))
-        {
-            velocity.x = -velocity.x;
-        }
+        // var contactAngle = Vector2.Angle(Vector2.right, other.contacts[0].point - (Vector2)this.transform.position);
+        //
+        // if (contactAngle >= 45 && contactAngle <= 135)
+        // {
+        //     velocity.y = -velocity.y;
+        // }
+        //
+        // if (!(contactAngle > 45 && contactAngle < 135))
+        // {
+        //     velocity.x = -velocity.x;
+        // }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        gameObject.SetActive(false);
+        if (other.CompareTag("Lost"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        // var contactAngle = Vector2.Angle(Vector2.right, other.OverlapPoint() contacts[0].point - (Vector2)this.transform.position);
+        //
+        // if (contactAngle >= 45 && contactAngle <= 135)
+        // {
+        //     velocity.y = -velocity.y;
+        // }
+        //
+        // if (!(contactAngle > 45 && contactAngle < 135))
+        // {
+        //     velocity.x = -velocity.x;
+        // }
     }
 }
