@@ -41,7 +41,36 @@ public class Ball : MonoBehaviour
 
     private void LateUpdate()
     {
-        body.velocity = body.velocity.normalized * speed;
+        if (isLocked)
+            return;
+        
+        var angle = Vector2.Angle(Vector2.right, body.velocity);
+        
+        Vector2 newVelocity = body.velocity.normalized;
+        
+        if ((0 <= angle && angle <= 20) || (160 <= angle && angle <= 180) )
+        {
+            newVelocity += Vector2.up * Random.Range(0.1f, 0.5f);
+        }
+        
+        if ((70 <= angle && angle <= 90) || (270 <= angle && angle <= 290))
+        {
+            newVelocity += Vector2.right * Random.Range(0.1f, 0.5f);
+        }
+
+        if ((180 <= angle && angle <= 200) || (340 <= angle && angle <= 360))
+        {
+            newVelocity += Vector2.down * Random.Range(0.1f, 0.5f);
+        }
+        
+        if ((90 <= angle && angle <= 112) || (250 <= angle && angle <= 270))
+        {
+            newVelocity += Vector2.left * Random.Range(0.1f, 0.5f);
+        }
+
+        body.velocity = newVelocity.normalized * speed;
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -63,7 +92,7 @@ public class Ball : MonoBehaviour
     {
         if (other.CompareTag("Lost"))
         {
-            gameObject.SetActive(false);
+            Destroy(this.gameObject);
             return;
         }
 

@@ -9,6 +9,6 @@ public class Score : MonoBehaviour
     
     void Update()
     {
-        scoreText.text = $"Score: {GameManager.Score}";
+        scoreText.text = $"Score  {GameManager.Score}";
     }
 }
