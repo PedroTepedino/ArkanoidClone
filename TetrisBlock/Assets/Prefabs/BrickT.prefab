@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418222951}
   - component: {fileID: 418222953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1504260732}
   - component: {fileID: 1504260731}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: colliders (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,9 +128,9 @@ GameObject:
   - component: {fileID: 1524009830}
   - component: {fileID: 1524009828}
   - component: {fileID: 2434927170860344994}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BrickT
-  m_TagString: Untagged
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

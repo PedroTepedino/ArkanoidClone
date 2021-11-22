@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,9 +10,13 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private Ball ballPrefab;
     private List<Ball> balls;
+
+    private static Action OnSpawnNewBall;
     
     public static int Score = 0;
 
+    private static int newBallcounter = 0;
+    
     private void Awake()
     {
         balls = new List<Ball>();
@@ -23,6 +30,14 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SpawnPlayerBall();
+        newBallcounter = 0;
+
+        OnSpawnNewBall += SpawnBallBall;
+    }
+
+    private void OnDisable()
+    {
+        OnSpawnNewBall -= SpawnBallBall;
     }
 
     private void Update()
@@ -42,16 +57,33 @@ public class GameManager : MonoBehaviour
         var ball = SpawnBall();
         ball.transform.localPosition = new Vector3(0f, 0.25f, 0f);
         ball.gameObject.SetActive(true);
+        balls.Add(ball);
+    }
+
+    private void SpawnBallBall()
+    {
+        var ball = SpawnBall();
+        ball.transform.parent = null;
+        ball.transform.position = balls[0].transform.position;
+        ball.Unlock();
+        balls.Add(ball);
     }
 
     public static void GetPoint()
     {
         Score++;
+        newBallcounter++;
+
+        if (newBallcounter >= 5)
+        {
+            OnSpawnNewBall?.Invoke();
+            newBallcounter = 0;
+        }
     }
 
-    public static void LosePoint()
+    public static void LosePoints(int points = 1)
     {
-        Score--;
+        Score -= points;
     }
 
     private Ball SpawnBall()

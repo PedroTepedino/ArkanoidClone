@@ -18,20 +18,21 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ball"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            GameManager.GetPoint();
+            GameManager.LosePoints(5);
         }
-        else
+        else if (!other.gameObject.CompareTag("Ball"))
         {
-            GameManager.LosePoint();
+            GameManager.LosePoints(2);
         }
 
         Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    { 
+    {
+        GameManager.LosePoints(2);
         Destroy(gameObject);
     }
 }
