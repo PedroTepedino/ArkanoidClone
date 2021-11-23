@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +14,8 @@ public class GameManager : MonoBehaviour
     public static int Score = 0;
 
     private static int newBallcounter = 0;
+
+    public static bool lost = false;
     
     private void Awake()
     {
@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Score = 0;
+        Score = 10;
+        lost = false;
     }
 
     private void OnEnable()
@@ -84,6 +85,11 @@ public class GameManager : MonoBehaviour
     public static void LosePoints(int points = 1)
     {
         Score -= points;
+
+        if (Score < 0)
+        {
+            lost = true;
+        }
     }
 
     private Ball SpawnBall()
